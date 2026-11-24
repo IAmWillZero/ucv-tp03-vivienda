@@ -1,0 +1,16 @@
+# Sistema y editores
+Thumbs.db
+desktop.ini
+.DS_Store
+.vscode/
+# Fuentes de trabajo que NO se publican
+*.dwg
+*.bak
+*.dwl
+*.dwl2
+*.blend
+*.blend1
+*.pptx
+*.zip
+notas_privadas/
+privado/

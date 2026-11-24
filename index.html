@@ -1,0 +1,339 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Vivienda unifamiliar de dos pisos · TP03 · Grupo A1</title>
+<meta name="description" content="Presentación académica del TP03 de Expresión Gráfica (UCV Huaraz): vivienda unifamiliar de dos pisos con láminas A-01 a A-08, modelo 3D y recorrido en video.">
+<link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+<div class="app" id="app">
+  <header class="topbar" aria-label="Controles de la presentación">
+    <button class="tb-btn" id="btn-index" aria-haspopup="dialog" aria-controls="index-panel" title="Índice (I)">☰ <span>Índice</span></button>
+    <div class="tb-section" id="section-label" aria-live="polite"></div>
+    <div class="tb-right">
+      <span class="tb-count" id="counter" aria-live="polite">1 / 19</span>
+      <button class="tb-btn" id="btn-restart" title="Volver a la portada">⟲ <span>Inicio</span></button>
+      <button class="tb-btn" id="btn-fs" title="Pantalla completa (F)">⛶ <span>Pantalla completa</span></button>
+    </div>
+  </header>
+
+  <main class="stage-wrap">
+    <div class="stage" id="stage" aria-roledescription="presentación">
+
+      <!-- 1 · PORTADA -->
+      <section class="slide s-cover" data-section="Proyecto" data-title="Portada">
+        <img class="cover-bg" src="assets/renders/fachada-principal-dia.webp" alt="Render de la fachada principal de la vivienda, de día">
+        <div class="cover-shade"></div>
+        <div class="cover-text">
+          <p class="kicker">Expresión Gráfica · TP03 · 2026-II</p>
+          <h1>Vivienda unifamiliar<br>de dos pisos</h1>
+          <p class="cover-sub">Universidad César Vallejo · Escuela de Ingeniería Civil · Huaraz</p>
+          <div class="cover-team">
+            <p><strong>Grupo A1</strong> · J. A. Alvarado H. · J. F. Arellan L. · A. D. Dominguez C. · J. Y. Quiñones R. · W. R. Sigueñas O.</p>
+            <p>Docente del curso: M.Ss. M. M. Noriega F.</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- 2 · INTRODUCCIÓN Y OBJETIVOS -->
+      <section class="slide s-split" data-section="Proyecto" data-title="Introducción y objetivos">
+        <div class="col text">
+          <p class="kicker">01 · Introducción</p>
+          <h2>Una casa para cuatro residentes y sus visitas</h2>
+          <p class="lead">Lote medianero de <b>8.00 × 23.00 m</b>: ordenar las zonas social, de servicio y privada, resolver las circulaciones y representarlo con calidad en AutoCAD.</p>
+          <h3>Objetivos</h3>
+          <ul class="ticks">
+            <li>Proponer una vivienda funcional para una familia de cuatro integrantes.</li>
+            <li>Documentarla en ocho láminas con cotas, niveles, cuadros y mobiliario a escala.</li>
+            <li>Verificar los criterios aplicables del RNE vigente.</li>
+            <li>Comunicar el proyecto con un modelo 3D y un recorrido.</li>
+          </ul>
+        </div>
+        <figure class="col media">
+          <img src="assets/renders/vista-aerea-3-4.webp" alt="Vista aérea del modelo 3D" data-zoom>
+          <figcaption>Vista aérea del modelo 3D</figcaption>
+        </figure>
+      </section>
+
+      <!-- 3 · CARACTERÍSTICAS -->
+      <section class="slide s-data" data-section="Proyecto" data-title="Características del proyecto">
+        <p class="kicker">02 · Características</p>
+        <h2>El proyecto en cifras</h2>
+        <div class="stats">
+          <div class="stat"><span class="num">184.00</span><span class="unit">m²</span><span class="lbl">Lote 8.00 × 23.00 m</span></div>
+          <div class="stat"><span class="num">250.20</span><span class="unit">m²</span><span class="lbl">Área techada (125.10 por piso)</span></div>
+          <div class="stat"><span class="num">32</span><span class="unit">%</span><span class="lbl">Área libre · 58.90 m²</span></div>
+          <div class="stat"><span class="num">1.36</span><span class="unit"></span><span class="lbl">Coeficiente de edificación</span></div>
+        </div>
+        <div class="two">
+          <div><h3>Primer piso · social y servicio</h3><p>Garaje, hall, oficina, sala-comedor, cocina, lavandería, SS.HH. de visitas y escalera.</p></div>
+          <div><h3>Segundo piso · privado</h3><p>Dormitorio principal con vestidor y baño, dos dormitorios, estar familiar con teatina, balcón y SS.HH.</p></div>
+        </div>
+        <p class="foot">Albañilería confinada · losa aligerada 0.20 m · entrepiso 2.80 m · altura libre 2.60 m</p>
+      </section>
+
+      <!-- 4 · METODOLOGÍA -->
+      <section class="slide s-steps" data-section="Proyecto" data-title="Metodología">
+        <p class="kicker">03 · Metodología</p>
+        <h2>Del programa a la presentación</h2>
+        <ol class="steps">
+          <li><b>Programa</b><span>Usuarios, ambientes y relaciones</span></li>
+          <li><b>Zonificación</b><span>Social · servicio · privada</span></li>
+          <li><b>AutoCAD</b><span>Capas, bloques, cotas y layouts a escala</span></li>
+          <li><b>Verificación</b><span>Criterios RNE A.010 y A.020</span></li>
+          <li><b>Modelo 3D</b><span>Renders y recorrido</span></li>
+        </ol>
+        <p class="foot">Planos en su versión final; el modelo 3D y el video corresponden a la etapa previa a la corrección de barandas.</p>
+      </section>
+
+      <!-- 5 · PRIMERA PLANTA -->
+      <section class="slide s-sheet" data-section="Arquitectura" data-title="Primera planta">
+        <figure class="sheet"><img src="assets/planos/A-01.webp" alt="Lámina A-01, planta del primer piso, escala 1:50" data-zoom></figure>
+        <aside class="side">
+          <p class="kicker">A-01 · Escala 1:50</p>
+          <h2>Primer piso</h2>
+          <p>Frente sur a la izquierda. Se ingresa por la rampa al hall, que distribuye al garaje, la oficina y la sala-comedor abierta al patio.</p>
+          <table class="mini">
+            <tr><td>Sala-comedor</td><td>44.87 m²</td></tr><tr><td>Oficina</td><td>17.80 m²</td></tr>
+            <tr><td>Garaje</td><td>13.25 m²</td></tr><tr><td>Cocina</td><td>9.37 m²</td></tr>
+            <tr><td>Hall</td><td>6.59 m²</td></tr><tr><td>Lavandería · SS.HH. 1</td><td>5.15 · 5.40 m²</td></tr>
+          </table>
+          <p class="hint">Haz clic en la lámina para ampliarla.</p>
+        </aside>
+      </section>
+
+      <!-- 6 · SEGUNDA PLANTA -->
+      <section class="slide s-sheet" data-section="Arquitectura" data-title="Segunda planta">
+        <figure class="sheet"><img src="assets/planos/A-02.webp" alt="Lámina A-02, planta del segundo piso, escala 1:50" data-zoom></figure>
+        <aside class="side">
+          <p class="kicker">A-02 · Escala 1:50</p>
+          <h2>Segundo piso</h2>
+          <p>Zona privada completa. El estar familiar organiza los dormitorios; el balcón interior se abre al vacío de la escalera.</p>
+          <table class="mini">
+            <tr><td>Dorm. principal</td><td>25.04 m²</td></tr><tr><td>Dormitorio 2</td><td>20.56 m²</td></tr>
+            <tr><td>Estar-hall</td><td>19.21 m²</td></tr><tr><td>Dormitorio 3</td><td>17.80 m²</td></tr>
+            <tr><td>SS.HH. 2 · vestidor</td><td>9.37 · 5.15 m²</td></tr><tr><td>Balcón · SS.HH. 3</td><td>4.83 · 5.40 m²</td></tr>
+          </table>
+        </aside>
+      </section>
+
+      <!-- 7 · ZONIFICACIÓN -->
+      <section class="slide s-sheet" data-section="Arquitectura" data-title="Zonificación">
+        <figure class="sheet"><img src="assets/planos/A-05.webp" alt="Lámina A-05, zonificación de ambos pisos" data-zoom></figure>
+        <aside class="side">
+          <p class="kicker">A-05</p>
+          <h2>Zonificación</h2>
+          <ul class="zones">
+            <li><i style="background:#F4A261"></i>Social<b>78.89 m²</b></li>
+            <li><i style="background:#6BAED6"></i>Servicio<b>33.17 m²</b></li>
+            <li><i style="background:#88C999"></i>Privada<b>112.14 m²</b></li>
+          </ul>
+          <p>Lo social y el servicio quedan abajo; lo privado, completo arriba. Total útil: 224.20 m².</p>
+        </aside>
+      </section>
+
+      <!-- 8 · CIRCULACIONES -->
+      <section class="slide s-sheet" data-section="Arquitectura" data-title="Circulaciones">
+        <figure class="sheet"><img src="assets/planos/A-06.webp" alt="Lámina A-06, recorridos funcionales de cinco usuarios" data-zoom></figure>
+        <aside class="side">
+          <p class="kicker">A-06</p>
+          <h2>Circulaciones</h2>
+          <p>Cinco recorridos: cuatro residentes y las visitas. El hall reparte en el primer piso y la escalera conecta con el estar del segundo.</p>
+          <ul class="ticks"><li>Las visitas no suben a la zona privada.</li><li>El servicio se agrupa junto al patio.</li></ul>
+          <p class="note">Algunos trazos son esquemáticos y están registrados para su corrección gráfica.</p>
+        </aside>
+      </section>
+
+      <!-- 9 · CRITERIOS RNE -->
+      <section class="slide s-table" data-section="Técnica" data-title="Criterios técnicos y RNE">
+        <p class="kicker">04 · Criterios técnicos</p>
+        <h2>Verificación con el RNE vigente</h2>
+        <table class="rne">
+          <thead><tr><th>Criterio</th><th>Proyecto</th><th>Referencia</th><th>Estado</th></tr></thead>
+          <tbody>
+            <tr><td>Altura libre de ambientes</td><td>2.60 m</td><td>≥ 2.30 m · A.020 art. 9.1</td><td><span class="st ok">Verificado</span></td></tr>
+            <tr><td>Puertas</td><td>Ingreso 1.10 · dormitorios ≥ 0.80 · baños ≥ 0.70</td><td>A.020 art. 12.2</td><td><span class="st ok">Verificado</span></td></tr>
+            <tr><td>Iluminación de ambientes con ventana</td><td>Vano ≥ 10 % del piso</td><td>A.020 art. 12.4</td><td><span class="st ok">Verificado</span></td></tr>
+            <tr><td>Escalera: paso, contrapaso y ancho</td><td>0.25 · 0.175 · 0.90 m</td><td>A.010 art. 23 · A.020 art. 15.1</td><td><span class="st ok">Verificado</span></td></tr>
+            <tr><td>Barandas y pasamanos</td><td>h = 1.00 m · luz 0.10 m</td><td>A.010 art. 35 · A.020 art. 15.1 c</td><td><span class="st ok">Verificado en planos</span></td></tr>
+            <tr><td>Ducto de ventilación de baños</td><td>0.18 m² libres</td><td>≥ 0.24 m² · A.010 art. 44</td><td><span class="st no">No conforme</span></td></tr>
+            <tr><td>Alféizar de ventanas V-1 a V-5</td><td>0.90 m</td><td>Protección a 1.00 m · A.020 art. 12.5</td><td><span class="st no">No conforme</span></td></tr>
+            <tr><td>Cajón de estacionamiento</td><td>2.775 × 4.775 m</td><td>2.70 × 5.00 m · A.010 art. 54.1</td><td><span class="st no">No conforme</span></td></tr>
+            <tr><td>Retiros, área libre y estacionamientos</td><td>Retiro 4.00 m · libre 32 %</td><td>Certificado municipal</td><td><span class="st pe">Pendiente</span></td></tr>
+          </tbody>
+        </table>
+        <p class="foot">A.010 (RM 191-2021-VIVIENDA) · A.020 (RM 188-2021-VIVIENDA). Verificación académica: no equivale a una aprobación municipal.</p>
+      </section>
+
+      <!-- 10 · ESCALERA -->
+      <section class="slide s-stair" data-section="Técnica" data-title="Escalera">
+        <div class="col text">
+          <p class="kicker">05 · Escalera</p>
+          <h2>Escalera en L de dos tramos</h2>
+          <dl class="specs">
+            <dt>Contrapasos</dt><dd>16 × 0.175 = 2.80 m</dd>
+            <dt>Pasos</dt><dd>14 × 0.25 m (7 + 7)</dd>
+            <dt>Ancho libre</dt><dd>0.90 m</dd>
+            <dt>Descanso</dt><dd>0.90 × 0.90 m a + 1.40</dd>
+            <dt>Altura libre</dt><dd>2.775 m</dd>
+            <dt>Protecciones</dt><dd>Baranda y pasamanos h = 1.00 m · barrotes @ 0.12 m</dd>
+          </dl>
+          <p class="note">La llegada al segundo piso (0.725 m libres) queda pendiente de revisión.</p>
+        </div>
+        <figure class="col media pair">
+          <img src="assets/detalles/escalera-planta.webp" alt="Detalle de la escalera en planta" data-zoom>
+          <img src="assets/detalles/escalera-corte.webp" alt="Detalle de la escalera en el corte A-A" data-zoom>
+          <figcaption>Planta A-01 y corte A-A</figcaption>
+        </figure>
+      </section>
+
+      <!-- 11 · CORTES -->
+      <section class="slide s-sheet" data-section="Técnica" data-title="Cortes A-A y B-B">
+        <figure class="sheet"><img src="assets/planos/A-03.webp" alt="Lámina A-03, cortes A-A y B-B con detalle" data-zoom></figure>
+        <aside class="side">
+          <p class="kicker">A-03</p>
+          <h2>Cortes A-A y B-B</h2>
+          <p>A-A recorre el primer tramo de la escalera; B-B, el segundo.</p>
+          <table class="mini">
+            <tr><td>NPT primer piso</td><td>± 0.00</td></tr><tr><td>NPT segundo piso</td><td>+ 2.80</td></tr>
+            <tr><td>Fondo de techo</td><td>+ 5.60</td></tr><tr><td>Parapeto</td><td>+ 6.60</td></tr>
+            <tr><td>Losa aligerada</td><td>0.20 m</td></tr>
+          </table>
+        </aside>
+      </section>
+
+      <!-- 12 · ELEVACIONES -->
+      <section class="slide s-sheet" data-section="Técnica" data-title="Elevaciones">
+        <figure class="sheet"><img src="assets/planos/A-04.webp" alt="Lámina A-04, elevaciones frontal y posterior" data-zoom></figure>
+        <aside class="side">
+          <p class="kicker">A-04</p>
+          <h2>Elevaciones</h2>
+          <p>Fachada sur: portón, ingreso con franja de enchape tipo caravista y ventanas horizontales. Fachada norte: mamparas hacia el patio.</p>
+          <div class="thumbs">
+            <img src="assets/renders/fachada-principal-dia.webp" alt="Render de la fachada principal" data-zoom>
+            <img src="assets/renders/fachada-posterior-jardin.webp" alt="Render de la fachada posterior" data-zoom>
+          </div>
+        </aside>
+      </section>
+
+      <!-- 13 · CUADROS -->
+      <section class="slide s-sheet" data-section="Técnica" data-title="Cuadros de áreas y vanos">
+        <figure class="sheet"><img src="assets/planos/A-07.webp" alt="Lámina A-07, cuadros de áreas, vanos y mobiliario" data-zoom></figure>
+        <aside class="side">
+          <p class="kicker">A-07</p>
+          <h2>Cuadros técnicos</h2>
+          <ul class="ticks">
+            <li>Áreas recalculadas desde el dibujo: coinciden con el cuadro.</li>
+            <li>Vanos: 14 códigos y 23 unidades, con material.</li>
+            <li>Mobiliario M-01 a M-26 con dimensiones y material.</li>
+          </ul>
+        </aside>
+      </section>
+
+      <!-- 14 · CUBIERTA -->
+      <section class="slide s-sheet" data-section="Técnica" data-title="Cubierta y drenaje">
+        <figure class="sheet"><img src="assets/planos/A-08.webp" alt="Lámina A-08, cubierta y drenaje pluvial" data-zoom></figure>
+        <aside class="side">
+          <p class="kicker">A-08</p>
+          <h2>Cubierta y drenaje</h2>
+          <p>Cubierta no transitable con pendientes de 2 % y 1 %, tres sumideros y bajantes hacia cajas de registro.</p>
+          <p class="note">El dimensionamiento hidráulico es preliminar.</p>
+        </aside>
+      </section>
+
+      <!-- 15 · MODELO 3D -->
+      <section class="slide s-split" data-section="Visualización" data-title="Modelo tridimensional">
+        <figure class="col media wide">
+          <img src="assets/renders/corte-fugado-ambos-niveles.webp" alt="Corte fugado del modelo 3D con ambos niveles" data-zoom>
+          <figcaption>Corte fugado: los dos niveles y la escalera</figcaption>
+        </figure>
+        <div class="col text narrow">
+          <p class="kicker">06 · Modelo 3D</p>
+          <h2>Del plano al volumen</h2>
+          <p>El modelo reproduce la geometría de los planos y ayuda a leer alturas, vanos y relaciones entre ambientes.</p>
+          <p class="note">Es una representación del proyecto, no una obra construida.</p>
+        </div>
+      </section>
+
+      <!-- 16 · AMBIENTES AMOBLADOS -->
+      <section class="slide s-gallery" data-section="Visualización" data-title="Ambientes amoblados">
+        <p class="kicker">07 · Ambientes amoblados</p>
+        <h2>Vida interior</h2>
+        <div class="gallery">
+          <figure class="g-main"><img src="assets/renders/sala-comedor-hacia-jardin.webp" alt="Sala-comedor hacia el jardín" data-zoom><figcaption>Sala-comedor</figcaption></figure>
+          <figure><img src="assets/renders/cocina.webp" alt="Cocina" data-zoom><figcaption>Cocina</figcaption></figure>
+          <figure><img src="assets/renders/dormitorio-principal.webp" alt="Dormitorio principal" data-zoom><figcaption>Dormitorio principal</figcaption></figure>
+          <figure><img src="assets/renders/dormitorio-hija-mayor.webp" alt="Dormitorio de la hija mayor" data-zoom><figcaption>Dormitorio secundario</figcaption></figure>
+          <figure><img src="assets/renders/estar-circulacion-2do-piso.webp" alt="Estar y circulación del segundo piso" data-zoom><figcaption>Estar · 2.º piso</figcaption></figure>
+        </div>
+      </section>
+
+      <!-- 17 · VIDEO -->
+      <section class="slide s-video" data-section="Visualización" data-title="Recorrido en video">
+        <div class="video-box">
+          <video id="video" controls preload="none" playsinline poster="assets/video/poster.jpg">
+            <source src="assets/video/recorrido.mp4" type="video/mp4">
+            Tu navegador no puede reproducir este video.
+          </video>
+        </div>
+        <p class="video-cap"><b>Recorrido arquitectónico</b> · 56 s · con sonido. Usa el botón de pantalla completa del reproductor.</p>
+      </section>
+
+      <!-- 18 · RESULTADOS -->
+      <section class="slide s-results" data-section="Cierre" data-title="Resultados y conclusiones">
+        <p class="kicker">08 · Resultados</p>
+        <h2>Qué logramos y qué falta</h2>
+        <div class="cols3">
+          <div class="r ok"><h3>Verificado</h3><ul><li>Áreas, niveles y cotas coherentes entre láminas</li><li>Alturas, puertas e iluminación</li><li>Dimensiones y protecciones de la escalera</li></ul></div>
+          <div class="r pe"><h3>Pendiente</h3><ul><li>Parámetros municipales de Huaraz</li><li>Cálculo hidráulico de la cubierta</li><li>Llegada de la escalera al 2.º piso</li></ul></div>
+          <div class="r no"><h3>A mejorar</h3><ul><li>Ducto de ventilación de baños</li><li>Alféizar de ventanas</li><li>Dimensión del garaje</li></ul></div>
+        </div>
+        <p class="concl">La vivienda organiza con claridad sus zonas y se comunica en ocho láminas a escala; sabemos con precisión qué está verificado y qué debe corregirse.</p>
+      </section>
+
+      <!-- 19 · GRACIAS -->
+      <section class="slide s-cover s-end" data-section="Cierre" data-title="Gracias">
+        <img class="cover-bg" src="assets/renders/fachada-principal-noche.webp" alt="Render nocturno de la fachada principal">
+        <div class="cover-shade"></div>
+        <div class="cover-text">
+          <h1>Gracias</h1>
+          <p class="cover-sub">Grupo A1 · Expresión Gráfica · UCV Huaraz · 2026-II</p>
+          <p class="cover-team">Preguntas</p>
+        </div>
+      </section>
+
+    </div>
+    <button class="nav prev" id="btn-prev" aria-label="Diapositiva anterior">‹</button>
+    <button class="nav next" id="btn-next" aria-label="Diapositiva siguiente">›</button>
+  </main>
+  <div class="progress" aria-hidden="true"><div class="bar" id="bar"></div></div>
+</div>
+
+<div class="panel" id="index-panel" role="dialog" aria-modal="true" aria-label="Índice de diapositivas" hidden>
+  <div class="panel-box">
+    <div class="panel-head"><h2>Índice</h2><button class="tb-btn" id="btn-index-close" aria-label="Cerrar índice">✕</button></div>
+    <div id="index-list" class="index-list"></div>
+    <div class="panel-foot">
+      <button class="tb-btn" id="btn-restart2">⟲ Reiniciar desde la portada</button>
+      <span class="keys">← → espacio · F pantalla completa · I índice · Esc cerrar</span>
+    </div>
+  </div>
+</div>
+
+<div class="viewer" id="viewer" role="dialog" aria-modal="true" aria-label="Visor de imagen" hidden>
+  <div class="viewer-canvas" id="viewer-canvas"><img id="viewer-img" alt=""></div>
+  <div class="viewer-bar">
+    <button class="tb-btn" id="v-out" aria-label="Alejar">−</button>
+    <button class="tb-btn" id="v-fit" aria-label="Ajustar a pantalla">Ajustar</button>
+    <button class="tb-btn" id="v-in" aria-label="Acercar">+</button>
+    <span class="v-cap" id="viewer-cap"></span>
+    <button class="tb-btn" id="v-close" aria-label="Volver a la presentación">✕ Volver</button>
+  </div>
+</div>
+
+<div class="toast" id="toast" hidden></div>
+<script src="js/app.js"></script>
+</body>
+</html>
