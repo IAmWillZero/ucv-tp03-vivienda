@@ -8,7 +8,8 @@ Presentación web del Trabajo Práctico 03 del curso **Expresión Gráfica** (Es
 
 - 19 diapositivas 16:9: portada, objetivos, características, metodología, las dos plantas, zonificación, circulaciones, criterios del RNE, escalera, cortes, elevaciones, cuadros técnicos, cubierta, modelo 3D, ambientes amoblados, video, resultados y cierre.
 - Láminas A-01 a A-08 exportadas de los PDF finales (A-01 y A-02 desde la versión A2 1:50).
-- Renders del modelo 3D y el recorrido en video (56 s, con audio).
+- Renders del modelo 3D con corrección de color suave y vistas cenitales para comparar cada lámina con el modelo.
+- Recorrido en video (56 s, con audio y subtítulos). La escalera se muestra con la lámina A-01 vigente (barandas h = 1.00 m), porque el modelo 3D es anterior a esa corrección.
 
 ## Uso
 
@@ -21,6 +22,11 @@ Presentación web del Trabajo Práctico 03 del curso **Expresión Gráfica** (Es
 | Pantalla completa | F | Botón «Pantalla completa» |
 | Cerrar índice o visor | Esc | ✕ |
 | Ampliar plano | Clic o Enter sobre la imagen; + / − / 0 | Rueda, doble clic, pellizco, arrastrar |
+| Lámina ↔ modelo 3D (diapositivas 5–7) | C | Botones sobre la lámina |
+| Cronómetro de exposición | T (clic en él para reiniciar) | — |
+| Pantalla negra (pausa) | B | Clic para volver |
+| Atajos de teclado | ? | Botón «Ayuda» |
+| Reducir animaciones | — | Botón «Movimiento» (también respeta la preferencia del sistema) |
 
 - Cada diapositiva tiene su propio enlace: `index.html#/7` abre la zonificación.
 - Los botones Atrás y Adelante del navegador recorren las diapositivas.

@@ -23,9 +23,11 @@
   function pauseMedia() {
     stage.querySelectorAll("video").forEach(function (v) { if (!v.paused) v.pause(); });
   }
+  var booted = false;
   function show(i, opts) {
     opts = opts || {};
     i = Math.max(0, Math.min(total - 1, i));
+    var prevI = current;
     if (i !== current) pauseMedia();
     slides.forEach(function (s, k) {
       var on = k === i;
@@ -34,6 +36,13 @@
       s.inert = !on;
     });
     current = i;
+    if (booted && i !== prevI) {
+      var cls = i > prevI ? "enter-next" : "enter-prev";
+      slides[i].classList.remove("enter-next", "enter-prev");
+      void slides[i].offsetWidth;                       // reinicia la animación de entrada
+      slides[i].classList.add(cls);
+      if (slides[i].dataset.section !== slides[prevI].dataset.section) flashSection(i);
+    }
     $("counter").textContent = (i + 1) + " / " + total;
     $("section-label").textContent = slides[i].dataset.section + " · " + slides[i].dataset.title;
     $("bar").style.width = ((i + 1) / total * 100) + "%";
@@ -193,6 +202,8 @@
   document.addEventListener("keydown", function (e) {
     if (e.altKey || e.ctrlKey || e.metaKey) return;
     var tag = (e.target.tagName || "").toLowerCase();
+    if (!blackout.hidden) { e.preventDefault(); toggleBlackout(false); return; }
+    if (!help.hidden) { if (e.key === "Escape" || e.key === "?") { e.preventDefault(); toggleHelp(false); } return; }
     if (!viewer.hidden) {
       if (e.key === "Escape") { e.preventDefault(); closeViewer(); }
       else if (e.key === "+" || e.key === "=") zoomAt(1.4);
@@ -213,6 +224,10 @@
       case "f": case "F": e.preventDefault(); toggleFs(); break;
       case "i": case "I": case "m": case "M": e.preventDefault(); openIndex(); break;
       case "Escape": pauseMedia(); break;
+      case "c": case "C": e.preventDefault(); cycleCompare(); break;
+      case "t": case "T": e.preventDefault(); toggleTimer(); break;
+      case "b": case "B": case ".": e.preventDefault(); toggleBlackout(true); break;
+      case "?": e.preventDefault(); toggleHelp(true); break;
     }
   });
 
@@ -224,6 +239,86 @@
     var dx = e.changedTouches[0].clientX - tx, dy = e.changedTouches[0].clientY - ty; tx = null;
     if (e.target.closest("video")) return;
     if (Math.abs(dx) > 50 && Math.abs(dx) > Math.abs(dy) * 1.5) { dx < 0 ? next() : prev(); }
+  });
+
+  /* ---------- rótulo de sección ---------- */
+  var sections = [];
+  slides.forEach(function (s) { if (sections.indexOf(s.dataset.section) < 0) sections.push(s.dataset.section); });
+  var flash = $("section-flash"), flashTimer = null;
+  function flashSection(i) {
+    if (document.documentElement.classList.contains("reduce-motion")) return;
+    var n = sections.indexOf(slides[i].dataset.section) + 1;
+    flash.querySelector(".sf-num").textContent = (n < 10 ? "0" : "") + n + " · SECCIÓN";
+    flash.querySelector(".sf-name").textContent = slides[i].dataset.section;
+    flash.classList.remove("play"); void flash.offsetWidth; flash.classList.add("play");
+    clearTimeout(flashTimer); flashTimer = setTimeout(function () { flash.classList.remove("play"); }, 1300);
+  }
+
+  /* ---------- entradas escalonadas ---------- */
+  slides.forEach(function (s) {
+    var groups = s.querySelectorAll(".ticks, table.mini tbody, table.mini, table.rne tbody, .stats, .steps, .zones, .r ul, .gallery, .specs, .cols3, .two");
+    groups.forEach(function (g) {
+      Array.prototype.forEach.call(g.children, function (c, k) {
+        if (c.tagName === "TBODY") return;
+        c.setAttribute("data-stagger", ""); c.style.setProperty("--i", k);
+      });
+    });
+  });
+
+  /* ---------- comparador lámina / modelo 3D ---------- */
+  function setCompare(fig, k) {
+    var items = fig.querySelectorAll(".cmp-item"), btns = fig.querySelectorAll(".cmp-tabs button");
+    items.forEach(function (im, j) { im.classList.toggle("is-on", j === k); });
+    btns.forEach(function (b, j) { b.setAttribute("aria-pressed", j === k ? "true" : "false"); });
+  }
+  stage.querySelectorAll("[data-compare]").forEach(function (fig) {
+    fig.querySelectorAll(".cmp-tabs button").forEach(function (b, k) {
+      b.addEventListener("click", function (e) { e.stopPropagation(); setCompare(fig, k); });
+    });
+  });
+  function cycleCompare() {
+    var fig = slides[current].querySelector("[data-compare]");
+    if (!fig) return;
+    var items = fig.querySelectorAll(".cmp-item"), k = 0;
+    items.forEach(function (im, j) { if (im.classList.contains("is-on")) k = j; });
+    setCompare(fig, (k + 1) % items.length);
+  }
+
+  /* ---------- cronómetro ---------- */
+  var tBtn = $("btn-timer"), t0 = null, tInt = null;
+  function tick() {
+    var sec = Math.floor((Date.now() - t0) / 1000);
+    tBtn.textContent = String(Math.floor(sec / 60)).padStart(2, "0") + ":" + String(sec % 60).padStart(2, "0");
+  }
+  function toggleTimer() {
+    tBtn.hidden = !tBtn.hidden;
+    if (!tBtn.hidden && t0 === null) { t0 = Date.now(); tick(); tInt = setInterval(tick, 500); }
+  }
+  tBtn.addEventListener("click", function () { t0 = Date.now(); tick(); });
+
+  /* ---------- pantalla negra y ayuda ---------- */
+  var blackout = $("blackout"), help = $("help-panel");
+  function toggleBlackout(on) { blackout.hidden = !on; if (on) pauseMedia(); }
+  blackout.addEventListener("click", function () { toggleBlackout(false); });
+  function toggleHelp(on) { help.hidden = !on; if (on) $("btn-help-close").focus(); else $("btn-help").focus(); }
+  $("btn-help").addEventListener("click", function () { toggleHelp(true); });
+  $("btn-help-close").addEventListener("click", function () { toggleHelp(false); });
+  help.addEventListener("click", function (e) { if (e.target === help) toggleHelp(false); });
+
+  /* ---------- movimiento reducido (preferencia del sistema o botón) ---------- */
+  var MKEY = "tp03-movimiento", root = document.documentElement, mBtn = $("btn-motion");
+  function getMotion() { try { return localStorage.getItem(MKEY); } catch (e) { return null; } }
+  function applyMotion(reduce) {
+    root.classList.toggle("reduce-motion", reduce);
+    mBtn.setAttribute("aria-pressed", reduce ? "true" : "false");
+    mBtn.title = reduce ? "Animaciones reducidas (clic para activarlas)" : "Reducir animaciones";
+  }
+  var pref = getMotion();
+  applyMotion(pref ? pref === "reducido" : !!(window.matchMedia && matchMedia("(prefers-reduced-motion: reduce)").matches));
+  mBtn.addEventListener("click", function () {
+    var reduce = !root.classList.contains("reduce-motion");
+    applyMotion(reduce);
+    try { localStorage.setItem(MKEY, reduce ? "reducido" : "normal"); } catch (e) { /* sin almacenamiento */ }
   });
 
   /* ---------- arranque: hash > avance guardado > portada ---------- */
@@ -239,4 +334,5 @@
     t.appendChild(b); t.hidden = false;
     setTimeout(function () { t.hidden = true; }, 6000);
   } else show(0, { replace: true });
+  booted = true;
 })();
