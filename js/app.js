@@ -15,7 +15,7 @@
   function fit() {
     var wrap = stage.parentElement;
     var s = Math.min(wrap.clientWidth / 1920, wrap.clientHeight / 1080);
-    stage.style.transform = "scale(" + s + ")";
+    stage.style.transform = "translate(-50%, -50%) scale(" + s + ")";
   }
   window.addEventListener("resize", fit);
 

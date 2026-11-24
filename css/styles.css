@@ -27,15 +27,15 @@ button { font: inherit; cursor: pointer; }
 .app { position: fixed; inset: 0; display: flex; flex-direction: column; }
 .topbar { flex: 0 0 auto; display: flex; align-items: center; gap: 12px; padding: 8px 14px; background: var(--chrome); color: var(--chrome-ink); font-size: 14px; z-index: 5; }
 .tb-section { flex: 1; text-align: center; color: #a9a39a; letter-spacing: .08em; text-transform: uppercase; font-size: 12px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-.tb-right { display: flex; align-items: center; gap: 8px; }
+.tb-right { margin-left: auto; display: flex; align-items: center; gap: 8px; }
 .tb-count { font-variant-numeric: tabular-nums; color: #cfc9c0; min-width: 4.5em; text-align: right; }
 .tb-btn { background: transparent; color: inherit; border: 1px solid #3a3f46; border-radius: 6px; padding: 6px 10px; line-height: 1; }
 .tb-btn:hover { background: #262b31; }
 .app.fs .topbar { display: none; }
 @media (max-width: 720px) { .tb-btn span { display: none; } .tb-section { display: none; } }
 
-.stage-wrap { position: relative; flex: 1 1 auto; display: grid; place-items: center; overflow: hidden; }
-.stage { position: relative; width: 1920px; height: 1080px; transform-origin: center center; background: var(--paper); box-shadow: 0 10px 40px rgba(0,0,0,.45); flex: none; }
+.stage-wrap { position: relative; flex: 1 1 auto; min-height: 0; min-width: 0; overflow: hidden; }
+.stage { position: absolute; left: 50%; top: 50%; width: 1920px; height: 1080px; transform: translate(-50%, -50%) scale(.3); transform-origin: center center; background: var(--paper); box-shadow: 0 10px 40px rgba(0,0,0,.45); flex: none; }
 .progress { flex: 0 0 4px; background: #2a2e33; }
 .progress .bar { height: 100%; width: 0; background: var(--accent); transition: width .35s ease; }
 .app.fs .progress { position: fixed; left: 0; right: 0; bottom: 0; height: 4px; }
