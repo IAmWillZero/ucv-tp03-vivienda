@@ -28,10 +28,21 @@
     opts = opts || {};
     i = Math.max(0, Math.min(total - 1, i));
     var prevI = current;
-    if (i !== current) pauseMedia();
+    if (i !== current) {
+      pauseMedia();
+      if (!viewer.hidden) closeViewer();
+      if (!panel.hidden) closeIndex();
+      if (!help.hidden) toggleHelp(false);
+      if (!blackout.hidden) toggleBlackout(false);
+      $("toast").hidden = true;
+      clearTimeout(flashTimer);
+      flash.classList.remove("play");
+    }
     slides.forEach(function (s, k) {
       var on = k === i;
+      s.hidden = !on;
       s.classList.toggle("active", on);
+      if (!on) s.classList.remove("enter-next", "enter-prev");   // su animación con relleno anularía opacity:0
       s.setAttribute("aria-hidden", on ? "false" : "true");
       s.inert = !on;
     });
@@ -43,10 +54,11 @@
       slides[i].classList.add(cls);
       if (slides[i].dataset.section !== slides[prevI].dataset.section) flashSection(i);
     }
+    if (slides[i].querySelector("#v3d")) load3D();
     $("counter").textContent = (i + 1) + " / " + total;
     $("section-label").textContent = slides[i].dataset.section + " · " + slides[i].dataset.title;
     $("bar").style.width = ((i + 1) / total * 100) + "%";
-    document.title = slides[i].dataset.title + " · TP03 Vivienda · Grupo A1";
+    document.title = slides[i].dataset.title + " · Vivienda unifamiliar · Grupo A1";
     $("btn-prev").disabled = i === 0;
     $("btn-next").disabled = i === total - 1;
     markIndex();
@@ -63,14 +75,12 @@
     var m = /^#\/(\d+)$/.exec(location.hash);
     return m ? parseInt(m[1], 10) - 1 : null;
   }
-  window.addEventListener("popstate", function () {
-    var h = fromHash();
-    if (h !== null && h >= 0 && h < total) show(h, { replace: true });
-  });
-  window.addEventListener("hashchange", function () {
+  function syncFromHistory() {
     var h = fromHash();
     if (h !== null && h !== current && h >= 0 && h < total) show(h, { replace: true });
-  });
+  }
+  window.addEventListener("popstate", syncFromHistory);
+  window.addEventListener("hashchange", syncFromHistory);
 
   /* ---------- índice ---------- */
   var list = $("index-list"), lastSection = null;
@@ -202,6 +212,7 @@
   document.addEventListener("keydown", function (e) {
     if (e.altKey || e.ctrlKey || e.metaKey) return;
     var tag = (e.target.tagName || "").toLowerCase();
+    if (tag === "model-viewer") return;          // con el visor 3D enfocado, las flechas giran el modelo
     if (!blackout.hidden) { e.preventDefault(); toggleBlackout(false); return; }
     if (!help.hidden) { if (e.key === "Escape" || e.key === "?") { e.preventDefault(); toggleHelp(false); } return; }
     if (!viewer.hidden) {
@@ -237,7 +248,7 @@
   stage.parentElement.addEventListener("touchend", function (e) {
     if (tx === null) return;
     var dx = e.changedTouches[0].clientX - tx, dy = e.changedTouches[0].clientY - ty; tx = null;
-    if (e.target.closest("video")) return;
+    if (e.target.closest("video, model-viewer")) return;
     if (Math.abs(dx) > 50 && Math.abs(dx) > Math.abs(dy) * 1.5) { dx < 0 ? next() : prev(); }
   });
 
@@ -256,7 +267,7 @@
 
   /* ---------- entradas escalonadas ---------- */
   slides.forEach(function (s) {
-    var groups = s.querySelectorAll(".ticks, table.mini tbody, table.mini, table.rne tbody, .stats, .steps, .zones, .r ul, .gallery, .specs, .cols3, .two");
+    var groups = s.querySelectorAll(".ticks, table.mini tbody, table.mini, table.rne tbody, .stats, .zones, .gallery, .specs, .cols3, .two");
     groups.forEach(function (g) {
       Array.prototype.forEach.call(g.children, function (c, k) {
         if (c.tagName === "TBODY") return;
@@ -319,6 +330,47 @@
     var reduce = !root.classList.contains("reduce-motion");
     applyMotion(reduce);
     try { localStorage.setItem(MKEY, reduce ? "reducido" : "normal"); } catch (e) { /* sin almacenamiento */ }
+  });
+
+  /* ---------- visor 3D: model-viewer local, cargado solo al llegar a la diapositiva ---------- */
+  var v3d = $("v3d"), mv = null;
+  var VIEWS = { exterior: "35deg 74deg 85%", superior: "90deg 0deg 78%" };   // calle en +Z; superior como las láminas: frente a la izquierda
+  function hasWebGL() {
+    try { var c = document.createElement("canvas"); return !!(c.getContext("webgl2") || c.getContext("webgl")); } catch (e) { return false; }
+  }
+  function load3D() {
+    if (mv || !v3d) return;
+    var cap = v3d.querySelector(".v3d-cap");
+    // shortcut: file:// no permite cargar módulos ni el GLB; la copia sin internet muestra el corte fugado
+    if (!/^https?:$/.test(location.protocol) || !hasWebGL()) {
+      cap.textContent = "Corte fugado del modelo 3D · el visor interactivo funciona en la versión en línea";
+      return;
+    }
+    mv = document.createElement("model-viewer");
+    [["src", v3d.dataset.src], ["alt", "Modelo 3D interactivo de la vivienda"], ["camera-controls", ""], ["touch-action", "pan-y"],
+     ["interaction-prompt", "none"], ["shadow-intensity", "0.6"], ["exposure", "1.05"], ["camera-orbit", VIEWS.exterior],
+     ["min-camera-orbit", "auto 0deg auto"], ["max-camera-orbit", "auto 95deg auto"], ["interpolation-decay", "120"]]
+      .forEach(function (a) { mv.setAttribute(a[0], a[1]); });
+    mv.addEventListener("load", function () {
+      v3d.classList.add("ready"); v3d.querySelector(".v3d-bar").hidden = false;
+      cap.textContent = "Modelo 3D interactivo · versión web simplificada";
+    });
+    mv.addEventListener("error", function () {
+      mv.remove(); cap.textContent = "No se pudo cargar el modelo 3D; se muestra el corte fugado.";
+    });
+    v3d.querySelector(".v3d-stage").appendChild(mv);
+    var sc = document.createElement("script"); sc.type = "module"; sc.src = "assets/vendor/model-viewer.min.js";
+    document.head.appendChild(sc);
+  }
+  if (v3d) v3d.querySelectorAll(".v3d-bar button").forEach(function (b) {
+    b.addEventListener("click", function () {
+      if (!mv) return;
+      var view = b.dataset.view === "reset" ? "exterior" : b.dataset.view;
+      mv.cameraOrbit = VIEWS[view]; mv.cameraTarget = "auto auto auto"; mv.fieldOfView = "auto";
+      v3d.querySelectorAll("[data-view]").forEach(function (x) {
+        if (x.dataset.view !== "reset") x.setAttribute("aria-pressed", x.dataset.view === view ? "true" : "false");
+      });
+    });
   });
 
   /* ---------- arranque: hash > avance guardado > portada ---------- */
